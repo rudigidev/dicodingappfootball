@@ -174,17 +174,17 @@ function getSavedArticles() {
     // Menyusun komponen card artikel secara dinamis
     var articlesHTML = '';
     articles.forEach(function(article) {
-      var description = article.post_content.substring(0,100);
+      console.log(articles);
       articlesHTML += `
                   <div class="card">
-                    <a href="./article.html?id=${article.ID}&saved=true">
+                    <a href="./article.html?id=${article.id}&saved=true">
                       <div class="card-image waves-effect waves-block waves-light">
-                        <img src="${article.cover}" />
+                        <img src="${article.crestUrl}" />
                       </div>
                     </a>
                     <div class="card-content">
-                      <span class="card-title truncate">${article.post_title}</span>
-                      <p>${description}</p>
+                      <span class="card-title truncate">${article.name}</span>
+                      <p>${article.website}</p>
                     </div>
                   </div>
                 `;
@@ -199,19 +199,20 @@ function getSavedArticleById() {
   var idParam = urlParams.get("id");
   
   getById(idParam).then(function(article) {
-    articleHTML = '';
-    var articleHTML = `
+    console.log(article);
+    var articleHTML = '';
+    articleHTML += `
     <div class="card">
       <div class="card-image waves-effect waves-block waves-light">
-        <img src="${article.cover}" />
+        <img src="${article.crestUrl}" />
       </div>
       <div class="card-content">
-        <span class="card-title">${article.post_title}</span>
-        ${snarkdown(article.post_content)}
+        <span class="card-title">${article.name}</span>
+        ${article.website}
       </div>
     </div>
   `;
     // Sisipkan komponen card ke dalam elemen dengan id #content
-    document.getElementById("body-content").innerHTML = articleHTML;
+    document.getElementById("body-content").innerHTML += articleHTML;
   });
 }
